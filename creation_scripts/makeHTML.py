@@ -1001,7 +1001,7 @@ def processForm(speciesName, form, formName=None, includeData=True):
     if includeData:
         attributes.append(DATA_TEMPLATE.format(key="species", value=speciesName))
         attributes += [
-            DATA_TEMPLATE.format(key=key.replace(" ", "-").lower(), value=form[key])
+            DATA_TEMPLATE.format(key=key.replace(" ", "-").replace(".", "").lower(), value=form[key])
             for key in form
             if form[key] and key not in ATTRIBUTES_TO_SKIP
         ]

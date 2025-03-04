@@ -140,16 +140,19 @@ function processDropdownClick(event, button) {
     switch (button.getAttribute("aria-label")) {
         case "select item": {
             let oldItemGroup = button.closest(".item-group")
-            oldItemGroup.classList.add("hide")
             oldItemGroup.querySelectorAll(".item").forEach(item => {
                 item.classList.add("hide")
             })
 
             let scrollWrapper = button.closest(".scroll-wrapper")
 
-            let newItemGroup = scrollWrapper.querySelector("#" + button.dataset.name.replaceAll(" ", "-"))
+            let newItemGroup
+            try {
+                newItemGroup = scrollWrapper.querySelector("#" + button.dataset.name.replaceAll(" ", "-").replaceAll(".", ""))
+            } catch (e) { }
 
             if (newItemGroup) {
+                oldItemGroup.classList.add("hide")
                 newItemGroup.classList.remove("hide")
                 clearDropdownSearch(button.closest(".dropdown"))
                 visitedPages.push(oldItemGroup.id)
@@ -664,7 +667,6 @@ function importSaveData(file) {
 
 async function loadData() {
     db.rows.orderBy("index").toArray().then(async rows => {
-        console.log(rows)
         // if the save data is empty, initialize starting data
         if (!rows || rows.length === 0) {
             db.settings.put({ id: 1, numRowsCreated: 0, theme: "system", expanded: false, boxed: false })
