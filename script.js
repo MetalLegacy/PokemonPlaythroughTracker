@@ -94,8 +94,10 @@ document.addEventListener("click", async event => {
             break
         }
         case "remove mon": {
-            button.closest(".selection").classList.add("unselected")
+            let selection = button.closest(".selection")
+            selection.classList.add("unselected")
             calculateAllStats()
+            saveMon(selection)
             break
         }
         case "add row": {

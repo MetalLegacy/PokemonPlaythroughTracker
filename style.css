@@ -720,8 +720,9 @@ search {
         position: absolute;
         padding-inline: var(--medium-padding);
         padding-block: var(--small-padding);
-        border-radius: 100vmax;
+        border-radius: var(--extra-large-padding);
         width: 100%;
+        word-break: break-all;
     }
 }
 
